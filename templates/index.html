@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-4">
+    <h4>Chọn chủ đề</h4>
+    <form method="POST" action="{{ url_for('index') }}">
+      <div class="list-group">
+        {% for t in topics %}
+          <label class="list-group-item">
+            <input class="form-check-input me-1" type="checkbox" name="topics" value="{{ t }}"> {{ t }}
+          </label>
+        {% endfor %}
+      </div>
+      <button class="btn btn-primary mt-3" type="submit">Hiển thị</button>
+    </form>
+  </div>
+  <div class="col-md-8">
+    <h4>Kết quả</h4>
+    {% if results %}
+      <ul class="list-group">
+        {% for row in results %}
+          <li class="list-group-item"><strong>{{ row['topic'] }}</strong> — <b>{{ row['word'] }}</b>: {{ row['meaning'] }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">Chưa có kết quả. Tìm kiếm hoặc chọn chủ đề để hiển thị từ vựng.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

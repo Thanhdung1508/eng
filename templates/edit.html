@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Edit word</h3>
+<form method="POST">
+  <div class="mb-3">
+    <label class="form-label">Word</label>
+    <input class="form-control" name="word" value="{{ item['word'] }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Meaning</label>
+    <input class="form-control" name="meaning" value="{{ item['meaning'] }}">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Topic</label>
+    <input class="form-control" name="topic" value="{{ item['topic'] }}" required>
+  </div>
+  <button class="btn btn-primary" type="submit">Update</button>
+  <a href="{{ url_for('vocabulary') }}" class="btn btn-secondary">Back</a>
+</form>
+{% endblock %}

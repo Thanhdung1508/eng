@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>📙 Ngữ pháp</h2>
+<ul class="list-group mt-3">
+  {% for row in data %}
+    <li class="list-group-item">
+      <b>{{ row['title'] }}</b> — {{ row['description'] }}<br><i>Ví dụ:</i> {{ row['example'] }}
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
