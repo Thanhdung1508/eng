@@ -1,0 +1,1185 @@
+   <!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Marine - Ocean of Vocabulary</title>
+  <style>
+    /* === Theme variables === */
+    :root {
+      --ocean-1: #7bdff6;
+      --ocean-2: #4ab6e6;
+      --accent: #ffd166;
+      --card-bg: rgba(255,255,255,0.95);
+      --glass: rgba(255,255,255,0.06);
+      --shadow: 0 8px 30px rgba(10,30,60,0.12);
+      --nav-height: 70px;
+      --radius: 16px;
+      --text: #03364a;
+      --muted: #2b6a7e;
+      --note-bg: #fff9e6;
+      --success: #06d6a0;
+      --warning: #ffd166;
+      --danger: #ef476f;
+    }
+    * {box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, "Segoe UI", Roboto, Arial; scroll-behavior: smooth;}
+    body {
+      min-height: 100vh;
+      background: radial-gradient(1400px 700px at 5% 8%, rgba(255,255,255,0.04), transparent 6%),
+                  linear-gradient(180deg, var(--ocean-1) 0%, var(--ocean-2) 56%, #08354a 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: 110px;
+      position: relative;
+      overflow-x: hidden;
+    }
+    a {color: inherit; text-decoration: none;}
+    button {cursor: pointer; font-family: inherit;}
+    input, textarea {font-family: inherit;}
+    ::-webkit-scrollbar {width: 8px;}
+    ::-webkit-scrollbar-track {background: rgba(255,255,255,0.1); border-radius: 4px;}
+    ::-webkit-scrollbar-thumb {background: rgba(255,255,255,0.3); border-radius: 4px;}
+    ::-webkit-scrollbar-thumb:hover {background: rgba(255,255,255,0.5);}
+
+    /* Ocean Background with Sea Creatures, Seaweed, and Coral */
+    .ocean-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.2;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .sea-creature, .coral, .seaweed {
+      position: absolute;
+    }
+    .sea-creature.fish1 {width: 40px; height: 20px; bottom: 20%; left: -50px; animation: swimFish 20s linear infinite;}
+    .sea-creature.fish2 {width: 30px; height: 15px; top: 30%; left: -50px; animation: swimFish 25s linear infinite; animation-delay: 5s;}
+    .sea-creature.turtle {width: 50px; height: 30px; bottom: 40%; left: -60px; animation: swimTurtle 30s linear infinite; animation-delay: 10s;}
+    .coral.c1 {width: 60px; height: 80px; bottom: 0; left: 10%; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23a0e9ff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>') no-repeat; background-size: contain;}
+    .coral.c2 {width: 80px; height: 100px; bottom: 0; right: 15%; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%236cc8ff"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>') no-repeat; background-size: contain;}
+    .seaweed.s1 {width: 30px; height: 100px; bottom: 0; left: 25%; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2306d6a0"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>') no-repeat; background-size: contain; animation: sway 6s ease-in-out infinite;}
+    .seaweed.s2 {width: 40px; height: 120px; bottom: 0; right: 30%; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2306d6a0"><path d="M12 2c-5.52 0-10 4.48-10 10s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>') no-repeat; background-size: contain; animation: sway 8s ease-in-out infinite; animation-delay: 2s;}
+    @keyframes swimFish {0% {transform: translateX(-50px) translateY(0) rotate(0deg);} 25% {transform: translateX(25vw) translateY(-20px) rotate(5deg);} 50% {transform: translateX(50vw) translateY(20px) rotate(-5deg);} 75% {transform: translateX(75vw) translateY(-10px) rotate(3deg);} 100% {transform: translateX(100vw) translateY(0) rotate(0deg);}}
+    @keyframes swimTurtle {0% {transform: translateX(-60px) translateY(0);} 50% {transform: translateX(50vw) translateY(10px);} 100% {transform: translateX(100vw) translateY(0);}}
+    @keyframes sway {0%, 100% {transform: rotate(0deg);} 50% {transform: rotate(10deg);}}
+
+    /* Bubble Animation */
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: rise 10s infinite ease-in;
+    }
+    @keyframes rise {
+      0% { transform: translateY(0) scale(0.5); opacity: 0.7;}
+      100% { transform: translateY(-120vh) scale(1); opacity: 0;}
+    }
+
+    /* Chatbot */
+    .chatbot {position: fixed; right: 20px; bottom: 20px; z-index: 80; display: flex; flex-direction: column; align-items: flex-end; gap: 10px;}
+    .chat-avatar {
+      width: 70px; height: 70px; border-radius: 16px; background: linear-gradient(135deg, #2bb3ff, #2fa0d9);
+      display: flex; align-items: center; justify-content: center; font-size: 34px; color: white;
+      box-shadow: var(--shadow); cursor: pointer; transition: transform 140ms ease, box-shadow 140ms ease;
+      animation: float 4s ease-in-out infinite;
+    }
+    .chat-avatar:active {transform: scale(0.97);}
+    .chat-avatar:hover {box-shadow: 0 12px 30px rgba(43, 179, 255, 0.4);}
+    @keyframes float {0%, 100% {transform: translateY(0);} 50% {transform: translateY(-10px);}}
+    .chatbox {
+      width: 360px; max-width: 94vw; background: var(--card-bg); border-radius: 14px; padding: 12px;
+      box-shadow: var(--shadow); display: none; flex-direction: column; gap: 10px; backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .chatbox.active {display: flex;}
+    .chatbox .head {display: flex; align-items: center; gap: 10px; padding: 8px; border-bottom: 1px solid rgba(5,60,80,0.08);}
+    .chatbox .messages {height: 260px; overflow: auto; padding: 10px; display: flex; flex-direction: column; gap: 10px;}
+    .msg {max-width: 78%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4;}
+    .msg.bot {background: linear-gradient(90deg, #f0f9ff, #dff6ff); align-self: flex-start;}
+    .msg.user {background: linear-gradient(90deg, #ffdede, #ffe7d9); align-self: flex-end;}
+    .chat-input {display: flex; gap: 8px; padding-top: 8px;}
+    .chat-input input {flex: 1; padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(10,30,60,0.1); background: rgba(255, 255, 255, 0.8);}
+    .chat-input button {padding: 10px 16px; border-radius: 999px; border: none; background: linear-gradient(90deg, #2bb3ff, #2fa0d9); color: white; font-weight: 700; transition: all 0.3s ease;}
+    .chat-input button:hover {transform: translateY(-2px); box-shadow: 0 4px 10px rgba(43, 179, 255, 0.3);}
+    .chat-popup {
+      position: absolute;
+      bottom: 90px;
+      right: 20px;
+      background: linear-gradient(90deg, #f0f9ff, #dff6ff);
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: var(--text);
+      box-shadow: var(--shadow);
+      display: none;
+      max-width: 200px;
+      z-index: 85;
+    }
+    .chat-popup.active {display: block;}
+    /* NAV */
+    .nav {height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; padding: 10px 24px; position: sticky; top: 0; z-index: 60; backdrop-filter: blur(6px); background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); box-shadow: 0 1px 0 rgba(255,255,255,0.04);}
+    .brand {display: flex; gap: 12px; align-items: center;}
+    .logo {width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, #58c5ff, #2fa0d9); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 18px; box-shadow: var(--shadow);}
+    .brand .title {font-weight: 800; font-size: 18px;}
+    .menu {display: flex; gap: 12px; align-items: center;}
+    .menu a {padding: 8px 12px; border-radius: 12px; font-weight: 700; opacity: 0.96;}
+    .menu a:hover {background: rgba(255,255,255,0.04);}
+    .cta {background: linear-gradient(90deg, #ffd166, #ff8a65); color: #092a2b; padding: 10px 16px; border-radius: 12px; font-weight: 800; box-shadow: 0 10px 26px rgba(255,138,101,0.16);}
+    .shells {display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); padding: 6px 12px; border-radius: 12px; color: white; font-weight: 700;}
+    /* container */
+    .container {max-width: 1150px; margin: 22px auto; padding: 0 20px;}
+    /* Page sections */
+    .page {display: none;}
+    .page.active {display: block;}
+    /* HERO */
+    .hero {display: grid; grid-template-columns: 1fr 420px; gap: 22px; align-items: center; margin-top: 6px;}
+    .hero-card {background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.92)); border-radius: 18px; padding: 24px; box-shadow: var(--shadow); position: relative; overflow: hidden;}
+    .hero h1 {font-size: 34px; color: var(--text); margin-bottom: 8px;}
+    .hero p {color: var(--muted); margin-bottom: 14px;}
+    .buttons {display: flex; gap: 12px;}
+    .btn {padding: 12px 14px; border-radius: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 10px; border: none;}
+    .btn-primary {background: linear-gradient(90deg, #2bb3ff, #2fa0d9); color: white;}
+    .btn-primary:before {content: '🐠';}
+    .btn-outline {background: transparent; border: 2px solid rgba(5,60,80,0.06); color: var(--text);}
+    .btn-outline:before {content: '🌴';}
+    .btn-success {background: var(--success); color: white;}
+    .btn-success:before {content: '🐚';}
+    .btn-warning {background: var(--warning); color: var(--text);}
+    .btn-warning:before {content: '🌊';}
+    .btn-danger {background: var(--danger); color: white;}
+    .btn-danger:before {content: '🦑';}
+    /* ocean panel */
+    .ocean-panel {position: relative; border-radius: 18px; overflow: hidden; padding: 18px; background: linear-gradient(180deg, #2fb0e6, #0d6e93); color: white; box-shadow: var(--shadow); min-height: 320px;}
+    .ocean-actions {display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;}
+    .ocean-actions .btn {background: rgba(255,255,255,0.12); color: white; padding: 10px 12px; border-radius: 10px; font-weight: 700;}
+    .ocean-actions .btn:before {content: '🐬'; margin-right: 4px;}
+    /* skill tree/cards (duolingo-like) */
+    .skills {margin-top: 20px; display: flex; gap: 18px; flex-wrap: wrap; align-items: center;}
+    .skill {width: 96px; height: 96px; border-radius: 50%; background: linear-gradient(180deg, #ffefc4, #ffd166); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.12); cursor: pointer; transition: transform 180ms; position: relative;}
+    .skill:hover {transform: translateY(-6px);}
+    .skill .label {font-size: 12px; font-weight: 800; color: #073544;}
+    .skill .label:before {content: '🐟'; margin-right: 4px;}
+    .skill .sub {font-size: 11px; color: #073544; opacity: 0.8;}
+    .skill.locked {filter: grayscale(0.08) contrast(0.9); opacity: 0.95;}
+    /* grid quick cards */
+    .grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;}
+    .card {background: var(--card-bg); padding: 16px; border-radius: 14px; box-shadow: var(--shadow); display: flex; gap: 12px; align-items: center; position: relative;}
+    .icon-circle {width: 62px; height: 62px; border-radius: 12px; background: linear-gradient(135deg, #a0e9ff, #6cc8ff); display: flex; align-items: center; justify-content: center; font-size: 28px; color: white;}
+    .card h3 {font-size: 16px; margin-bottom: 6px;}
+    .card p {font-size: 13px; color: #1d687f;}
+    /* note badge */
+    .note-badge {position: absolute; right: 10px; top: 10px; background: var(--note-bg); padding: 6px 8px; border-radius: 999px; font-weight: 700; font-size: 13px; color: #8a5a00; box-shadow: 0 6px 18px rgba(0,0,0,0.06);}
+    .note-badge:before {content: '📝'; margin-right: 4px;}
+    /* progress */
+    .progress {margin-top: 14px; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); padding: 12px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px;}
+    .progress .bar {height: 12px; background: rgba(255,255,255,0.12); border-radius: 12px; overflow: hidden;}
+    .progress .bar > i {display: block; height: 100%; background: linear-gradient(90deg, #ffd166, #ff8a65); width: 0%; border-radius: 12px; transition: width 700ms ease;}
+    /* Vocabulary Page */
+    .vocab-header {display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+    .vocab-list {margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; max-height: 400px; overflow-y: auto; padding-right: 8px;}
+    .vocab-item {background: var(--card-bg); padding: 16px; border-radius: 14px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center;}
+    .vocab-info {flex: 1;}
+    .vocab-word {font-weight: 800; font-size: 18px;}
+    .vocab-word:before {content: '🐚'; margin-right: 4px;}
+    .vocab-meaning {color: var(--muted); margin-top: 4px;}
+    .vocab-actions {display: flex; gap: 8px;}
+    .vocab-note-btn {background: var(--note-bg); color: #8a5a00; border: none; padding: 6px 10px; border-radius: 8px; font-weight: 700; font-size: 13px;}
+    .vocab-note-btn:before {content: '📝'; margin-right: 4px;}
+    /* Grammar Page */
+    .grammar-header {display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;}
+    .grammar-list {margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; max-height: 400px; overflow-y: auto; padding-right: 8px;}
+    .grammar-item {background: var(--card-bg); padding: 16px; border-radius: 14px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center;}
+    .grammar-info {flex: 1;}
+    .grammar-title {font-weight: 800; font-size: 18px;}
+    .grammar-title:before {content: '🌴'; margin-right: 4px;}
+    .grammar-explanation {color: var(--muted); margin-top: 4px;}
+    .grammar-actions {display: flex; gap: 8px;}
+    .grammar-note-btn {background: var(--note-bg); color: #8a5a00; border: none; padding: 6px 10px; border-radius: 8px; font-weight: 700; font-size: 13px;}
+    .grammar-note-btn:before {content: '📝'; margin-right: 4px;}
+    /* Notes Section */
+    .notes-section {margin-top: 30px;}
+    .notes-section h3 {font-size: 20px; font-weight: 800; margin-bottom: 12px;}
+    .notes-section h3:before {content: '🌊'; margin-right: 4px;}
+    .notes-list {display: flex; flex-direction: column; gap: 8px;}
+    .note-item {padding: 10px; border-radius: 10px; background: var(--note-bg); cursor: pointer; display: flex; flex-direction: column; gap: 6px;}
+    .note-item .meta {font-size: 12px; color: #7a5b00; display: flex; justify-content: space-between;}
+    /* Flashcard Practice */
+    .flashcard-container {max-width: 600px; margin: 0 auto; perspective: 1000px;}
+    .flashcard {width: 100%; height: 320px; position: relative; transform-style: preserve-3d; transition: transform 0.6s;}
+    .flashcard.flipped {transform: rotateY(180deg);}
+    .flashcard-front, .flashcard-back {position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 18px; padding: 24px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: var(--shadow);}
+    .flashcard-front {background: linear-gradient(135deg, #a0e9ff, #6cc8ff); color: white;}
+    .flashcard-back {background: linear-gradient(135deg, #ffefc4, #ffd166); color: var(--text); transform: rotateY(180deg);}
+    .flashcard-word {font-size: 32px; font-weight: 800; margin-bottom: 10px;}
+    .flashcard-meaning {font-size: 20px; text-align: center;}
+    .flashcard-example {margin-top: 16px; font-style: italic; text-align: center;}
+    .flashcard-controls {margin-top: 20px; display: flex; justify-content: center; gap: 12px;}
+    .difficulty-btn {width: 50px; height: 50px; border-radius: 50%; border: none; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s;}
+    .difficulty-btn:hover {transform: scale(1.1);}
+    .difficulty-btn.btn-primary {background: linear-gradient(90deg, #2bb3ff, #2fa0d9); color: white;}
+    .difficulty-btn.btn-success {background: var(--success); color: white;}
+    /* Shop */
+    .shop-grid {display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 20px;}
+    .shop-item {background: var(--card-bg); padding: 16px; border-radius: 14px; box-shadow: var(--shadow); text-align: center;}
+    .shop-item-img {width: 100%; height: 120px; border-radius: 10px; background: linear-gradient(135deg, #a0e9ff, #6cc8ff); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-size: 48px;}
+    .shop-item-price {display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 8px;}
+    /* Progress Page */
+    .progress-cards {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 20px;}
+    .progress-card {background: var(--card-bg); padding: 16px; border-radius: 14px; box-shadow: var(--shadow);}
+    .progress-card h3 {font-size: 16px; margin-bottom: 10px; color: var(--muted);}
+    .progress-card h3:before {content: '🏆'; margin-right: 4px;}
+    .progress-card .number {font-size: 28px; font-weight: 800; color: var(--text);}
+    /* Modal styles */
+    .modal-backdrop {position: fixed; inset: 0; background: rgba(2,20,30,0.35); display: none; align-items: center; justify-content: center; z-index: 90;}
+    .modal {max-width: 500px; max-height: 90vh; overflow: auto; background: white; border-radius: 14px; padding: 14px; box-shadow: var(--shadow); display: flex; gap: 12px;}
+    .note-editor {flex: 1; display: flex; flex-direction: column; gap: 8px;}
+    .note-editor input, .note-editor textarea {width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(10,30,60,0.06); font-size: 14px;}
+    .note-editor .actions {display: flex; gap: 8px; justify-content: flex-end;}
+    /* Add word/grammar modal */
+    .add-form {display: flex; flex-direction: column; gap: 12px;}
+    .form-group {display: flex; flex-direction: column; gap: 6px;}
+    .form-group label {font-weight: 700; font-size: 14px;}
+    .form-group label:before {content: '🌴'; margin-right: 4px;}
+    .form-group input, .form-group textarea {width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(10,30,60,0.06); font-size: 14px;}
+    /* Toast notifications */
+    .toast {position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--success); color: white; padding: 12px 20px; border-radius: 12px; box-shadow: var(--shadow); z-index: 100; display: none; align-items: center; gap: 10px;}
+    .toast:before {content: '🐬';}
+    /* small screens */
+    @media (max-width: 980px) {
+      .hero {grid-template-columns: 1fr;}
+      .grid {grid-template-columns: repeat(2, 1fr);}
+    }
+    @media (max-width: 640px) {
+      .grid {grid-template-columns: 1fr;}
+      .skills {justify-content: flex-start; overflow: auto; padding-bottom: 8px;}
+      .vocab-header, .grammar-header {flex-direction: column; align-items: flex-start; gap: 12px;}
+      .vocab-list, .grammar-list {grid-template-columns: 1fr;}
+      .chatbox {width: 90vw;}
+    }
+  </style>
+</head>
+<body>
+  <!-- Ocean Background -->
+  <div class="ocean-bg">
+    <div class="sea-creature fish1">🐠</div>
+    <div class="sea-creature fish2">🐟</div>
+    <div class="sea-creature turtle">🐢</div>
+    <div class="coral c1"></div>
+    <div class="coral c2"></div>
+    <div class="seaweed s1"></div>
+    <div class="seaweed s2"></div>
+  </div>
+  <!-- Bubbles -->
+  <div class="bubbles"></div>
+  <!-- Chatbot -->
+  <div class="chatbot" aria-live="polite">
+    <div class="chatbox" id="chatbox" role="dialog" aria-label="Assistant chat">
+      <div class="head">
+        <div style="width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#2bb3ff,#2fa0d9);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800">MO</div>
+        <div>
+          <div style="font-weight:800">Khô Mực — Trợ lý biển</div>
+          <div style="font-size:12px;color:var(--muted)">Giỡn thôi má, nhưng tớ cũng biết giảng 😄</div>
+        </div>
+      </div>
+      <div class="messages" id="messages" aria-live="polite">
+        <div class="msg bot">Hey! Mún ôn từ nào về hải sản hông? 🐠</div>
+      </div>
+      <div class="chat-input">
+        <input id="chatInput" type="text" placeholder="Gõ: 'meaning of tide' hoặc 'sửa: I goed'..." />
+        <button id="sendBtn">Gửi</button>
+      </div>
+    </div>
+    <div class="chat-popup" id="chatPopup"></div>
+    <div class="chat-avatar" id="avatar" title="Mở trợ lý">🐙</div>
+  </div>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="brand">
+      <div class="logo">🌊</div>
+      <div>
+        <div class="title">Marine</div>
+        <div style="font-size:12px;color:var(--muted)"> Ocean of Vocabulary 🐟</div>
+      </div>
+    </div>
+    <div class="menu" aria-label="main navigation">
+      <a href="#" onclick="goTo('home')">Home</a>
+      <a href="#" onclick="goTo('vocab')">Vocabulary</a>
+      <a href="#" onclick="goTo('grammar')">Grammar</a>
+      <a href="#" onclick="goTo('practice')">Practice</a>
+      <a href="#" onclick="goTo('progress')">Progress</a>
+      <a href="#" onclick="goTo('shop')">Shop</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="shells">
+        <span>🐚</span>
+        <span id="shells-count">200</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;color:var(--muted);font-weight:700">
+        🔥 <span id="streak">4</span> days
+      </div>
+      <a class="cta" href="#" onclick="goTo('practice')">Sign-In</a>
+    </div>
+  </div>
+  <!-- Toast notification -->
+  <div class="toast" id="toast">
+    <span id="toast-message"></span>
+  </div>
+  <!-- HOME PAGE -->
+  <div class="container page active" id="home-page">
+    <div class="hero">
+      <div class="hero-card" role="region" aria-label="Hero">
+        <div class="bubbles" aria-hidden="true">
+          <div class="bubble b1"></div><div class="bubble b2"></div><div class="bubble b3"></div><div class="bubble b4"></div><div class="bubble b5"></div>
+        </div>
+        <h1>Học như chơi — theo nhánh kỹ năng đại dương 🌊</h1>
+        <p>Khám phá skill bubbles, học flashcard, làm quiz, và ghi chú trong từ vựng — lưu trực tiếp trên trình duyệt.</p>
+        <div class="buttons">
+          <button class="btn btn-primary" onclick="goTo('practice')">Ôn tập ngay</button>
+          <button class="btn btn-outline" onclick="goTo('vocab')">Khám phá từ vựng</button>
+        </div>
+        <div class="progress" style="margin-top:18px;max-width:560px;">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="font-weight:800">Tiến độ hôm nay</div>
+            <div style="font-size:13px;color:var(--muted)" id="todayWords">12 / 20 từ</div>
+          </div>
+          <div class="bar"><i id="barFill" style="width:60%"></i></div>
+          <div style="display:flex;gap:12px;font-size:13px;color:var(--muted);margin-top:8px">
+            <div>🔥 Streak: <strong id="streakTxt">4 ngày</strong></div>
+            <div>🏆 Points: <strong id="points">120</strong></div>
+          </div>
+        </div>
+      </div>
+      <div class="ocean-panel" aria-hidden="false">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h3 style="margin:0;font-size:20px;font-weight:800">Skill Tree — Chủ đề biển</h3>
+            <div style="opacity:0.95">Mở các bubble để luyện tập từng bộ nhỏ</div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:800;font-size:28px">🌊</div>
+          </div>
+        </div>
+        <div class="skills" id="skills"></div>
+        <div style="margin-top:12px">
+          <div class="ocean-actions">
+            <button class="btn" onclick="shuffleSkills()">Tùy ý</button>
+            <button class="btn" onclick="startDaily()">Bài hàng ngày</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:20px">
+      <div class="card" role="button" onclick="goTo('vocab')">
+        <div class="icon-circle">🐠</div>
+        <div>
+          <h3>Từ vựng — Chủ đề biển</h3>
+          <p>Lưu trữ từ theo chủ đề: fish, coral, tide... Có ví dụ & ghi chú.</p>
+        </div>
+      </div>
+      <div class="card" role="button" onclick="goTo('grammar')">
+        <div class="icon-circle">🌴</div>
+        <div>
+          <h3>Ngữ pháp — Gọn & dễ hiểu</h3>
+          <p>Giải thích nhanh + ví dụ minh họa, bài tập ngắn theo chủ đề.</p>
+        </div>
+        <div class="note-badge" onclick="event.stopPropagation(); addQuickNote('Grammar','Note về ngữ pháp...')">＋</div>
+      </div>
+      <div class="card" role="button" onclick="goTo('practice')">
+        <div class="icon-circle">🐬</div>
+        <div>
+          <h3>Ôn tập — Flashcard & Quiz</h3>
+          <p>Flashcard + quiz nhanh. Hệ thống gợi ý từ cần ôn lại.</p>
+        </div>
+        <div class="note-badge" onclick="event.stopPropagation(); addQuickNote('Practice','Ghi chú nhanh cho bài ôn')">＋</div>
+      </div>
+    </div>
+  </div>
+  <!-- VOCABULARY PAGE -->
+  <div class="container page" id="vocab-page">
+    <div class="vocab-header">
+      <h2>Từ vựng chủ đề biển</h2>
+      <div style="display:flex;gap:12px">
+        <button class="btn btn-primary" onclick="openAddWordModal()">+ Thêm từ mới</button>
+        <button class="btn btn-outline" onclick="openNotes()">Ghi chú</button>
+      </div>
+    </div>
+    <div class="vocab-list" id="vocab-list"></div>
+    <div class="notes-section">
+      <h3>Ghi chú từ vựng</h3>
+      <div class="notes-list" id="notesContainer"></div>
+      <div style="margin-top:12px">
+        <button class="btn btn-primary" onclick="createNewNote()">+ Thêm ghi chú</button>
+      </div>
+    </div>
+  </div>
+  <!-- GRAMMAR PAGE -->
+  <div class="container page" id="grammar-page">
+    <div class="grammar-header">
+      <h2>Ngữ pháp chủ đề biển</h2>
+      <div style="display:flex;gap:12px">
+        <button class="btn btn-primary" onclick="openAddGrammarModal()">+ Thêm ngữ pháp mới</button>
+        <button class="btn btn-outline" onclick="openNotes()">Ghi chú</button>
+      </div>
+    </div>
+    <div class="grammar-list" id="grammar-list"></div>
+    <div class="notes-section">
+      <h3>Ghi chú ngữ pháp</h3>
+      <div class="notes-list" id="notesContainer"></div>
+      <div style="margin-top:12px">
+        <button class="btn btn-primary" onclick="createNewNote()">+ Thêm ghi chú</button>
+      </div>
+    </div>
+  </div>
+  <!-- PRACTICE/FLASHCARD PAGE -->
+  <div class="container page" id="practice-page">
+    <h2>Ôn tập với Flashcard</h2>
+    <p style="color:var(--muted);margin-bottom:20px">Hệ thống SRS giúp bạn ôn tập từ vựng đúng thời điểm</p>
+    <div class="flashcard-container">
+      <div class="flashcard" id="flashcard">
+        <div class="flashcard-front">
+          <div class="flashcard-word" id="flashcard-word">tide</div>
+          <p>Nhấn để xem nghĩa</p>
+        </div>
+        <div class="flashcard-back">
+          <div class="flashcard-meaning" id="flashcard-meaning">the regular rise and fall of the sea</div>
+          <div class="flashcard-example" id="flashcard-example">The tide brings many shells to the shore.</div>
+        </div>
+      </div>
+      <div class="flashcard-controls" id="flashcard-controls">
+        <button class="difficulty-btn btn-primary" onclick="prevCard()" title="Từ trước">👈</button>
+        <button class="difficulty-btn btn-success" onclick="markAsLearned()" title="Đánh dấu đã học">✅</button>
+        <button class="difficulty-btn btn-primary" onclick="nextCard()" title="Từ tiếp theo">👉</button>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:20px">
+      <p id="review-stats">Còn <strong>5</strong> từ cần ôn hôm nay</p>
+    </div>
+  </div>
+  <!-- PROGRESS PAGE -->
+  <div class="container page" id="progress-page">
+    <h2>Tiến trình học tập</h2>
+    <p style="color:var(--muted);margin-bottom:20px">Theo dõi mục tiêu học tập hàng ngày của bạn</p>
+    <div class="progress-cards">
+      <div class="progress-card">
+        <h3>Mục tiêu hôm nay</h3>
+        <div class="number" id="today-goal">12/20 từ</div>
+        <div class="progress" style="margin-top:10px">
+          <div class="bar"><i style="width:60%"></i></div>
+        </div>
+      </div>
+      <div class="progress-card">
+        <h3>Số ngày liên tiếp</h3>
+        <div class="number" id="streak-days">4 ngày</div>
+      </div>
+      <div class="progress-card">
+        <h3>Tổng số từ đã học</h3>
+        <div class="number" id="total-words">42 từ</div>
+      </div>
+      <div class="progress-card">
+        <h3>Tổng vỏ sò kiếm được</h3>
+        <div class="number" id="total-shells">120 🐚</div>
+      </div>
+    </div>
+    <div style="margin-top:30px">
+      <h3>Đặt mục tiêu hàng ngày</h3>
+      <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+        <input type="number" id="daily-goal" value="20" min="5" max="50" style="padding:10px;border-radius:10px;border:1px solid rgba(10,30,60,0.06);width:80px">
+        <span>từ mỗi ngày</span>
+        <button class="btn btn-primary" onclick="updateDailyGoal()">Cập nhật</button>
+      </div>
+    </div>
+  </div>
+  <!-- SHOP PAGE -->
+  <div class="container page" id="shop-page">
+    <h2>Cửa hàng vỏ sò</h2>
+    <p style="color:var(--muted);margin-bottom:20px">Dùng vỏ sò để mua vật phẩm trang trí</p>
+    <div class="shop-grid">
+      <div class="shop-item">
+        <div class="shop-item-img">🌊</div>
+        <h3>Nền biển xanh</h3>
+        <p>Background mới cho profile</p>
+        <div class="shop-item-price">
+          <span>50</span>
+          <span>🐚</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="buyItem('ocean-bg', 50)">Mua ngay</button>
+      </div>
+      <div class="shop-item">
+        <div class="shop-item-img">🐠</div>
+        <h3>Chatbot cá heo</h3>
+        <p>Skin mới cho chatbot</p>
+        <div class="shop-item-price">
+          <span>75</span>
+          <span>🐚</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="buyItem('dolphin-skin', 75)">Mua ngay</button>
+      </div>
+      <div class="shop-item">
+        <div class="shop-item-img">✨</div>
+        <h3>Hiệu ứng đặc biệt</h3>
+        <p>Hiệu ứng khi hoàn thành bài</p>
+        <div class="shop-item-price">
+          <span>100</span>
+          <span>🐚</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="buyItem('special-effect', 100)">Mua ngay</button>
+      </div>
+      <div class="shop-item">
+        <div class="shop-item-img">🎵</div>
+        <h3>Nhạc nền đại dương</h3>
+        <p>Âm thanh khi học tập</p>
+        <div class="shop-item-price">
+          <span>120</span>
+          <span>🐚</span>
+        </div>
+        <button class="btn btn-primary" style="margin-top:10px" onclick="buyItem('ocean-sound', 120)">Mua ngay</button>
+      </div>
+    </div>
+  </div>
+  <!-- NOTES MODAL -->
+  <div class="modal-backdrop" id="notesModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document" aria-label="Notes editor">
+      <div class="note-editor">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-weight:900">Ghi chú</div>
+          <button onclick="closeNotes()" style="border:none;background:none;cursor:pointer">✕</button>
+        </div>
+        <input id="noteTitle" placeholder="Title: (ví dụ: tide - nghĩa & ví dụ)"/>
+        <input id="noteTag" placeholder="Tag / Topic (ví dụ: Vocabulary, Marine Life)"/>
+        <textarea id="noteBody" rows="9" placeholder="Ghi chú ở đây... (hệ thống lưu trên trình duyệt)"></textarea>
+        <div class="actions">
+          <div style="display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:13px">
+            <div id="noteMeta">Không có note được chọn</div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-outline" onclick="deleteNote()">Xóa</button>
+              <button class="btn btn-primary" onclick="saveNote()">Lưu</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ADD WORD MODAL -->
+  <div class="modal-backdrop" id="addWordModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" style="max-width:500px">
+      <div style="width:100%">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-weight:900">Thêm từ mới</div>
+          <button onclick="closeAddWordModal()" style="border:none;background:none;cursor:pointer">✕</button>
+        </div>
+        <div class="add-form">
+          <div class="form-group">
+            <label for="newWord">Từ vựng</label>
+            <input type="text" id="newWord" placeholder="Ví dụ: tide">
+          </div>
+          <div class="form-group">
+            <label for="newMeaning">Nghĩa</label>
+            <input type="text" id="newMeaning" placeholder="Ví dụ: the regular rise and fall of the sea">
+          </div>
+          <div class="form-group">
+            <label for="newExample">Ví dụ (tùy chọn)</label>
+            <textarea id="newExample" placeholder="Ví dụ: The tide brings many shells to the shore." rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="newTag">Chủ đề / Tag (tùy chọn)</label>
+            <input type="text" id="newTag" placeholder="Ví dụ: Marine Life, Vocabulary">
+          </div>
+          <div class="form-group">
+            <label for="bulkWords">Thêm nhiều từ (dán danh sách: từ,nghĩa,ví dụ,tag; mỗi từ 1 dòng)</label>
+            <textarea id="bulkWords" rows="4" placeholder="tide,the regular rise and fall of the sea,The tide brings many shells to the shore.,Marine Life\ncoral,a hard, colorful substance formed by marine animals,Coral reefs are home to many fish.,Marine Life"></textarea>
+          </div>
+          <div class="actions">
+            <button class="btn btn-outline" onclick="closeAddWordModal()">Hủy</button>
+            <button class="btn btn-primary" onclick="addNewWords()">Thêm từ</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ADD GRAMMAR MODAL -->
+  <div class="modal-backdrop" id="addGrammarModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" style="max-width:500px">
+      <div style="width:100%">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-weight:900">Thêm ngữ pháp mới</div>
+          <button onclick="closeAddGrammarModal()" style="border:none;background:none;cursor:pointer">✕</button>
+        </div>
+        <div class="add-form">
+          <div class="form-group">
+            <label for="newGrammarTitle">Tiêu đề</label>
+            <input type="text" id="newGrammarTitle" placeholder="Ví dụ: Present Simple">
+          </div>
+          <div class="form-group">
+            <label for="newGrammarExplanation">Giải thích</label>
+            <textarea id="newGrammarExplanation" placeholder="Ví dụ: Dùng để diễn tả thói quen hoặc sự thật." rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="newGrammarExample">Ví dụ</label>
+            <textarea id="newGrammarExample" placeholder="Ví dụ: The tide rises twice a day." rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="newGrammarTag">Chủ đề / Tag (tùy chọn)</label>
+            <input type="text" id="newGrammarTag" placeholder="Ví dụ: Tenses, Ocean Terms">
+          </div>
+          <div class="form-group">
+            <label for="bulkGrammar">Thêm nhiều ngữ pháp (dán danh sách: tiêu đề,giải thích,ví dụ,tag; mỗi mục 1 dòng)</label>
+            <textarea id="bulkGrammar" rows="4" placeholder="Present Simple,Dùng để diễn tả thói quen hoặc sự thật,The tide rises twice a day.,Tenses\nPast Simple,Dùng để kể về các sự kiện đã xảy ra,The ship sailed yesterday.,Tenses"></textarea>
+          </div>
+          <div class="actions">
+            <button class="btn btn-outline" onclick="closeAddGrammarModal()">Hủy</button>
+            <button class="btn btn-primary" onclick="addNewGrammar()">Thêm ngữ pháp</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // === Core Data ===
+    let shells = 120;
+    let streak = 4;
+    let dailyGoal = 20;
+    let todayWords = 12;
+    let totalWords = 42;
+    let currentPage = 'home';
+    let currentNoteId = null;
+    let currentCardIndex = 0;
+    const skillsData = [
+      { id: 1, label: 'Fish', sub: '10 từ', locked: false },
+      { id: 2, label: 'Coral', sub: '8 từ', locked: false },
+      { id: 3, label: 'Tide', sub: '6 từ', locked: true },
+      { id: 4, label: 'Waves', sub: '12 từ', locked: true },
+      { id: 5, label: 'Marine Life', sub: '15 từ', locked: false }
+    ];
+    let vocabData = [
+      { id: 1, word: 'tide', meaning: 'the regular rise and fall of the sea', example: 'The tide brings many shells to the shore.', tag: 'Marine Life' },
+      { id: 2, word: 'coral', meaning: 'a hard, colorful substance formed by marine animals', example: 'Coral reefs are home to many fish.', tag: 'Marine Life' }
+    ];
+    let grammarData = [
+      { id: 1, title: 'Present Simple', explanation: 'Dùng để diễn tả thói quen hoặc sự thật về đại dương.', example: 'The tide rises twice a day.', tag: 'Tenses' },
+      { id: 2, title: 'Past Simple', explanation: 'Dùng để kể về các sự kiện đã xảy ra ở biển.', example: 'The ship sailed through the storm yesterday.', tag: 'Tenses' }
+    ];
+    let flashcards = [
+      { id: 1, word: 'tide', meaning: 'the regular rise and fall of the sea', example: 'The tide brings many shells to the shore.', difficulty: 0, nextReview: new Date() },
+      { id: 2, word: 'coral', meaning: 'a hard, colorful substance formed by marine animals', example: 'Coral reefs are home to many fish.', difficulty: 0, nextReview: new Date() }
+    ];
+    let notes = [
+      { id: 1, title: 'Tide Vocabulary', tag: 'Vocabulary', body: 'Tide: Thủy triều, sự lên xuống của nước biển.', created: new Date() }
+    ];
+    const chatbotMessages = [
+      "Hê, bơi nhanh lên kẻo cá mập đuổi đó! 😜",
+      "Học từ mới đi, đừng để tui bơi một mình nha! 🐠",
+      "Tide là thủy triều, mà tui thì siêu... liều! 😎",
+      "Học xong từ này tui dẫn đi ngắm san hô nè! 🌊",
+      "Ủa, mới học có tí mà lề mề thế hả? Nhanh lên nào! 😏",
+      "Đừng để rong rêu cuốn mất tinh thần học nha! 🌿",
+      "Tui là bạch tuộc, quấn quýt giúp bạn học lẹ nè! 🐙",
+      "Học đi, không là tui quấn chặt bằng xúc tu đó! 😆",
+      "Này, học từ mới đi, đừng để tui tung vòi phun nước nha! 💦",
+      "Bạch tuộc tui đây, học nhanh để còn lặn biển chơi nào! 🪸"
+    ];
+    // === Utility Functions ===
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      toastMessage.textContent = message;
+      toast.style.background = type === 'success' ? 'var(--success)' : 'var(--danger)';
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+    function showChatbotPopup() {
+      const popup = document.getElementById('chatPopup');
+      popup.textContent = chatbotMessages[Math.floor(Math.random() * chatbotMessages.length)];
+      popup.classList.add('active');
+      setTimeout(() => { popup.classList.remove('active'); }, 4000);
+    }
+    function showChatbotMessage() {
+      const messages = document.getElementById('messages');
+      const randomMsg = chatbotMessages[Math.floor(Math.random() * chatbotMessages.length)];
+      messages.innerHTML += `<div class="msg bot">${randomMsg}</div>`;
+      messages.scrollTop = messages.scrollHeight;
+      setTimeout(() => {
+        const oldMessages = messages.querySelectorAll('.msg.bot');
+        if (oldMessages.length > 3) {
+          oldMessages[0].remove();
+        }
+      }, 5000);
+    }
+    function saveToLocalStorage() {
+      localStorage.setItem('marineData', JSON.stringify({
+        shells, streak, dailyGoal, todayWords, totalWords, vocabData, grammarData, notes, flashcards
+      }));
+    }
+    function loadFromLocalStorage() {
+      const data = JSON.parse(localStorage.getItem('marineData'));
+      if (data) {
+        shells = data.shells || 120;
+        streak = data.streak || 4;
+        dailyGoal = data.dailyGoal || 20;
+        todayWords = data.todayWords || 12;
+        totalWords = data.totalWords || 42;
+        vocabData = data.vocabData || vocabData;
+        grammarData = data.grammarData || grammarData;
+        notes = data.notes || notes;
+        flashcards = data.flashcards || flashcards;
+      }
+      updateUI();
+    }
+    // === Navigation ===
+    function goTo(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(`${page}-page`).classList.add('active');
+      currentPage = page;
+      if (page === 'vocab') {
+        renderVocabList();
+        renderNotes();
+      }
+      if (page === 'grammar') {
+        renderGrammarList();
+        renderNotes();
+      }
+      if (page === 'practice') loadNextFlashcard();
+      showChatbotMessage();
+    }
+    // === Skills ===
+    function renderSkills() {
+      const skillsContainer = document.getElementById('skills');
+      skillsContainer.innerHTML = skillsData.map(skill => `
+        <div class="skill ${skill.locked ? 'locked' : ''}" onclick="${skill.locked ? '' : `startSkill(${skill.id})`}">
+          <div class="label">${skill.label}</div>
+          <div class="sub">${skill.sub}</div>
+        </div>
+      `).join('');
+    }
+    function shuffleSkills() {
+      skillsData.sort(() => Math.random() - 0.5);
+      renderSkills();
+      showToast('Đã sắp xếp ngẫu nhiên các kỹ năng!');
+      showChatbotMessage();
+    }
+    function startSkill(id) {
+      showToast(`Bắt đầu học kỹ năng: ${skillsData.find(s => s.id === id).label}`);
+      goTo('practice');
+    }
+    function startDaily() {
+      showToast('Bắt đầu bài tập hàng ngày!');
+      goTo('practice');
+    }
+    // === Vocabulary ===
+    function renderVocabList() {
+      const vocabList = document.getElementById('vocab-list');
+      vocabList.innerHTML = vocabData.map(item => `
+        <div class="vocab-item">
+          <div class="vocab-info">
+            <div class="vocab-word">${item.word}</div>
+            <div class="vocab-meaning">${item.meaning}</div>
+            ${item.example ? `<div class="vocab-example">${item.example}</div>` : ''}
+            ${item.tag ? `<div style="font-size:12px;color:var(--muted);margin-top:4px">${item.tag}</div>` : ''}
+          </div>
+          <div class="vocab-actions">
+            <button class="vocab-note-btn" onclick="addQuickNote('Vocabulary','${item.word}: ${item.meaning}')">+ Note</button>
+            <button class="btn btn-outline" onclick="deleteVocab(${item.id})">Xóa</button>
+          </div>
+        </div>
+      `).join('');
+    }
+    function openAddWordModal() {
+      document.getElementById('addWordModal').style.display = 'flex';
+    }
+    function closeAddWordModal() {
+      document.getElementById('addWordModal').style.display = 'none';
+      document.getElementById('newWord').value = '';
+      document.getElementById('newMeaning').value = '';
+      document.getElementById('newExample').value = '';
+      document.getElementById('newTag').value = '';
+      document.getElementById('bulkWords').value = '';
+    }
+    function addNewWords() {
+      const word = document.getElementById('newWord').value.trim();
+      const meaning = document.getElementById('newMeaning').value.trim();
+      const example = document.getElementById('newExample').value.trim();
+      const tag = document.getElementById('newTag').value.trim();
+      const bulkWords = document.getElementById('bulkWords').value.trim();
+      let newWords = [];
+      if (word && meaning) {
+        newWords.push({ word, meaning, example, tag });
+      }
+      if (bulkWords) {
+        const lines = bulkWords.split('\n');
+        for (let line of lines) {
+          const [word, meaning, example = '', tag = ''] = line.split(',').map(s => s.trim());
+          if (word && meaning) {
+            newWords.push({ word, meaning, example, tag });
+          }
+        }
+      }
+      if (newWords.length === 0) {
+        showToast('Vui lòng nhập ít nhất một từ và nghĩa!', 'danger');
+        return;
+      }
+      const maxId = vocabData.length ? Math.max(...vocabData.map(v => v.id)) : 0;
+      newWords.forEach((item, index) => {
+        const newId = maxId + index + 1;
+        vocabData.push({ id: newId, ...item });
+        flashcards.push({ id: newId, ...item, difficulty: 0, nextReview: new Date() });
+      });
+      totalWords += newWords.length;
+      renderVocabList();
+      updateUI();
+      saveToLocalStorage();
+      closeAddWordModal();
+      showToast(`Đã thêm ${newWords.length} từ mới!`);
+      showChatbotMessage();
+    }
+    function deleteVocab(id) {
+      vocabData = vocabData.filter(v => v.id !== id);
+      flashcards = flashcards.filter(f => f.id !== id);
+      totalWords--;
+      renderVocabList();
+      updateUI();
+      saveToLocalStorage();
+      showToast('Đã xóa từ!');
+      showChatbotMessage();
+    }
+    // === Grammar ===
+    function renderGrammarList() {
+      const grammarList = document.getElementById('grammar-list');
+      grammarList.innerHTML = grammarData.map(item => `
+        <div class="grammar-item">
+          <div class="grammar-info">
+            <div class="grammar-title">${item.title}</div>
+            <div class="grammar-explanation">${item.explanation}</div>
+            ${item.example ? `<div class="grammar-example" style="font-style:italic;margin-top:8px">${item.example}</div>` : ''}
+            ${item.tag ? `<div style="font-size:12px;color:var(--muted);margin-top:4px">${item.tag}</div>` : ''}
+          </div>
+          <div class="grammar-actions">
+            <button class="grammar-note-btn" onclick="addQuickNote('Grammar','${item.title}: ${item.explanation}')">+ Note</button>
+            <button class="btn btn-outline" onclick="deleteGrammar(${item.id})">Xóa</button>
+          </div>
+        </div>
+      `).join('');
+    }
+    function openAddGrammarModal() {
+      document.getElementById('addGrammarModal').style.display = 'flex';
+    }
+    function closeAddGrammarModal() {
+      document.getElementById('addGrammarModal').style.display = 'none';
+      document.getElementById('newGrammarTitle').value = '';
+      document.getElementById('newGrammarExplanation').value = '';
+      document.getElementById('newGrammarExample').value = '';
+      document.getElementById('newGrammarTag').value = '';
+      document.getElementById('bulkGrammar').value = '';
+    }
+    function addNewGrammar() {
+      const title = document.getElementById('newGrammarTitle').value.trim();
+      const explanation = document.getElementById('newGrammarExplanation').value.trim();
+      const example = document.getElementById('newGrammarExample').value.trim();
+      const tag = document.getElementById('newGrammarTag').value.trim();
+      const bulkGrammar = document.getElementById('bulkGrammar').value.trim();
+      let newGrammar = [];
+      if (title && explanation) {
+        newGrammar.push({ title, explanation, example, tag });
+      }
+      if (bulkGrammar) {
+        const lines = bulkGrammar.split('\n');
+        for (let line of lines) {
+          const [title, explanation, example = '', tag = ''] = line.split(',').map(s => s.trim());
+          if (title && explanation) {
+            newGrammar.push({ title, explanation, example, tag });
+          }
+        }
+      }
+      if (newGrammar.length === 0) {
+        showToast('Vui lòng nhập ít nhất một tiêu đề và giải thích!', 'danger');
+        return;
+      }
+      const maxId = grammarData.length ? Math.max(...grammarData.map(g => g.id)) : 0;
+      newGrammar.forEach((item, index) => {
+        const newId = maxId + index + 1;
+        grammarData.push({ id: newId, ...item });
+      });
+      renderGrammarList();
+      updateUI();
+      saveToLocalStorage();
+      closeAddGrammarModal();
+      showToast(`Đã thêm ${newGrammar.length} mục ngữ pháp mới!`);
+      showChatbotMessage();
+    }
+    function deleteGrammar(id) {
+      grammarData = grammarData.filter(g => g.id !== id);
+      renderGrammarList();
+      updateUI();
+      saveToLocalStorage();
+      showToast('Đã xóa mục ngữ pháp!');
+      showChatbotMessage();
+    }
+    // === Flashcards ===
+    function loadNextFlashcard() {
+      if (flashcards.length === 0) return;
+      currentCardIndex = Math.max(0, Math.min(currentCardIndex, flashcards.length - 1));
+      const card = flashcards[currentCardIndex];
+      document.getElementById('flashcard-word').textContent = card.word;
+      document.getElementById('flashcard-meaning').textContent = card.meaning;
+      document.getElementById('flashcard-example').textContent = card.example || '';
+      document.getElementById('review-stats').innerHTML = `Còn <strong>${flashcards.filter(f => f.nextReview <= new Date()).length}</strong> từ cần ôn hôm nay`;
+      showChatbotMessage();
+    }
+    function prevCard() {
+      if (currentCardIndex > 0) {
+        currentCardIndex--;
+        document.getElementById('flashcard').classList.remove('flipped');
+        loadNextFlashcard();
+        showToast('Đã chuyển sang từ trước!');
+      } else {
+        showToast('Đây là từ đầu tiên!', 'danger');
+      }
+      showChatbotMessage();
+    }
+    function nextCard() {
+      if (currentCardIndex < flashcards.length - 1) {
+        currentCardIndex++;
+        document.getElementById('flashcard').classList.remove('flipped');
+        loadNextFlashcard();
+        showToast('Đã chuyển sang từ tiếp theo!');
+      } else {
+        showToast('Đã hết từ để ôn!', 'danger');
+      }
+      showChatbotMessage();
+    }
+    function markAsLearned() {
+      const currentCard = flashcards[currentCardIndex];
+      if (!currentCard) return;
+      currentCard.difficulty = 2;
+      const now = new Date();
+      currentCard.nextReview = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+      todayWords++;
+      shells += 5;
+      document.getElementById('flashcard').classList.add('flipped');
+      setTimeout(() => {
+        document.getElementById('flashcard').classList.remove('flipped');
+        if (currentCardIndex < flashcards.length - 1) {
+          currentCardIndex++;
+        } else {
+          currentCardIndex = 0;
+        }
+        loadNextFlashcard();
+        updateUI();
+        saveToLocalStorage();
+        showToast('Đã đánh dấu từ này là đã học!');
+        showChatbotMessage();
+      }, 600);
+    }
+    // === Notes ===
+    function openNotes() {
+      document.getElementById('notesModal').style.display = 'flex';
+    }
+    function closeNotes() {
+      document.getElementById('notesModal').style.display = 'none';
+      currentNoteId = null;
+      document.getElementById('noteTitle').value = '';
+      document.getElementById('noteTag').value = '';
+      document.getElementById('noteBody').value = '';
+      document.getElementById('noteMeta').textContent = 'Không có note được chọn';
+      if (currentPage === 'vocab' || currentPage === 'grammar') renderNotes();
+    }
+    function renderNotes() {
+      const notesContainer = document.getElementById('notesContainer');
+      notesContainer.innerHTML = notes.map(note => `
+        <div class="note-item" onclick="selectNote(${note.id})">
+          <div style="font-weight:800">${note.title}</div>
+          <div class="meta">
+            <span>${note.tag || 'No tag'}</span>
+            <span>${new Date(note.created).toLocaleDateString()}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+    function selectNote(id) {
+      const note = notes.find(n => n.id === id);
+      if (!note) return;
+      currentNoteId = id;
+      document.getElementById('noteTitle').value = note.title;
+      document.getElementById('noteTag').value = note.tag || '';
+      document.getElementById('noteBody').value = note.body;
+      document.getElementById('noteMeta').textContent = `Tạo: ${new Date(note.created).toLocaleDateString()}`;
+      openNotes();
+    }
+    function createNewNote() {
+      const newId = notes.length ? Math.max(...notes.map(n => n.id)) + 1 : 1;
+      notes.push({ id: newId, title: 'New Note', tag: currentPage.charAt(0).toUpperCase() + currentPage.slice(1), body: '', created: new Date() });
+      renderNotes();
+      selectNote(newId);
+      saveToLocalStorage();
+      showToast('Đã thêm ghi chú mới!');
+      showChatbotMessage();
+    }
+    function saveNote() {
+      if (!currentNoteId) return;
+      const note = notes.find(n => n.id === currentNoteId);
+      note.title = document.getElementById('noteTitle').value;
+      note.tag = document.getElementById('noteTag').value;
+      note.body = document.getElementById('noteBody').value;
+      note.created = new Date();
+      renderNotes();
+      saveToLocalStorage();
+      showToast('Đã lưu ghi chú!');
+      if (currentPage === 'vocab' || currentPage === 'grammar') closeNotes();
+      showChatbotMessage();
+    }
+    function deleteNote() {
+      if (!currentNoteId) return;
+      notes = notes.filter(n => n.id !== currentNoteId);
+      currentNoteId = null;
+      document.getElementById('noteTitle').value = '';
+      document.getElementById('noteTag').value = '';
+      document.getElementById('noteBody').value = '';
+      document.getElementById('noteMeta').textContent = 'Không có note được chọn';
+      renderNotes();
+      saveToLocalStorage();
+      showToast('Đã xóa ghi chú!');
+      if (currentPage === 'vocab' || currentPage === 'grammar') closeNotes();
+      showChatbotMessage();
+    }
+    function addQuickNote(title, body) {
+      const newId = notes.length ? Math.max(...notes.map(n => n.id)) + 1 : 1;
+      notes.push({ id: newId, title, tag: currentPage.charAt(0).toUpperCase() + currentPage.slice(1), body, created: new Date });
+      renderNotes();
+      selectNote(newId);
+      saveToLocalStorage();
+      showToast('Đã thêm ghi chú nhanh!');
+      showChatbotMessage();
+    }
+    // === Shop ===
+    function buyItem(item, cost) {
+      if (shells >= cost) {
+        shells -= cost;
+        updateUI();
+        saveToLocalStorage();
+        showToast(`Đã mua ${item}!`);
+      } else {
+        showToast('Không đủ vỏ sò để mua!', 'danger');
+      }
+      showChatbotMessage();
+    }
+    // === Progress ===
+    function updateDailyGoal() {
+      const newGoal = parseInt(document.getElementById('daily-goal').value);
+      if (newGoal >= 5 && newGoal <= 50) {
+        dailyGoal = newGoal;
+        updateUI();
+        saveToLocalStorage();
+        showToast(`Mục tiêu hàng ngày cập nhật: ${newGoal} từ!`);
+      } else {
+        showToast('Mục tiêu phải từ 5 đến 50 từ!', 'danger');
+      }
+      showChatbotMessage();
+    }
+    function updateUI() {
+      document.getElementById('shells-count').textContent = shells;
+      document.getElementById('streak').textContent = streak;
+      document.getElementById('streakTxt').textContent = `${streak} ngày`;
+      document.getElementById('points').textContent = shells;
+      document.getElementById('todayWords').textContent = `${todayWords} / ${dailyGoal} từ`;
+      document.getElementById('today-goal').textContent = `${todayWords}/${dailyGoal} từ`;
+      document.getElementById('streak-days').textContent = `${streak} ngày`;
+      document.getElementById('total-words').textContent = `${totalWords} từ`;
+      document.getElementById('total-shells').textContent = `${shells} 🐚`;
+      document.getElementById('daily-goal').value = dailyGoal;
+      document.getElementById('barFill').style.width = `${(todayWords / dailyGoal) * 100}%`;
+      document.querySelector('.progress-card .bar i').style.width = `${(todayWords / dailyGoal) * 100}%`;
+    }
+    // === Chatbot ===
+    document.getElementById('avatar').addEventListener('click', () => {
+      const chatbox = document.getElementById('chatbox');
+      chatbox.classList.toggle('active');
+      if (chatbox.classList.contains('active')) {
+        showChatbotMessage();
+      }
+    });
+    document.getElementById('sendBtn').addEventListener('click', () => {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+      if (!message) return;
+      const messages = document.getElementById('messages');
+      messages.innerHTML += `<div class="msg user">${message}</div>`;
+      let response = '';
+      if (message.toLowerCase().startsWith('meaning of')) {
+        const word = message.toLowerCase().replace('meaning of', '').trim();
+        const vocab = vocabData.find(v => v.word.toLowerCase() === word);
+        response = vocab ? `${vocab.word}: ${vocab.meaning}${vocab.example ? ` (e.g., ${vocab.example})` : ''}` : `Tui chưa biết từ "${word}" nha! 😅 Thêm vào từ vựng đi!`;
+      } else if (message.toLowerCase().startsWith('sửa:') || message.toLowerCase().startsWith('fix:')) {
+        const sentence = message.replace(/sửa:|fix:/i, '').trim();
+        response = `Tui không phải AI xịn như Grok, nhưng câu "${sentence}" nghe hơi lạ. Thử thêm vào phần ngữ pháp để tui giúp sửa nhé! 😄`;
+      } else {
+        response = chatbotMessages[Math.floor(Math.random() * chatbotMessages.length)];
+      }
+      setTimeout(() => {
+        messages.innerHTML += `<div class="msg bot">${response}</div>`;
+        messages.scrollTop = messages.scrollHeight;
+        setTimeout(() => {
+          const oldMessages = messages.querySelectorAll('.msg.bot');
+          if (oldMessages.length > 3) {
+            oldMessages[0].remove();
+          }
+        }, 5000);
+      }, 500);
+      input.value = '';
+      messages.scrollTop = messages.scrollHeight;
+    });
+    document.getElementById('chatInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('sendBtn').click();
+      }
+    });
+    // === Flashcard Interaction ===
+    document.getElementById('flashcard').addEventListener('click', () => {
+      document.getElementById('flashcard').classList.toggle('flipped');
+    });
+    // === Generate Bubbles ===
+    const bubblesContainer = document.querySelector('.bubbles');
+    for (let i = 0; i < 20; i++) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      let size = Math.random() * 30 + 10;
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = Math.random() * 100 + '%';
+      bubble.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      bubblesContainer.appendChild(bubble);
+    }
+    // === Periodic Chatbot Popups ===
+    setInterval(() => {
+      if (Math.random() > 0.7) { // 30% chance every 20 seconds
+        showChatbotPopup();
+      }
+    }, 20000);
+    // === Initialize ===
+    function init() {
+      loadFromLocalStorage();
+      renderSkills();
+      renderVocabList();
+      renderGrammarList();
+      renderNotes();
+      loadNextFlashcard();
+      updateUI();
+      showChatbotMessage();
+      showChatbotPopup();
+    }
+    window.onload = init;
+  </script>
+</body>
+</html>
