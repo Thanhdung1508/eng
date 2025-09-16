@@ -156,7 +156,7 @@
     .btn-primary {background: linear-gradient(90deg, #2bb3ff, #2fa0d9); color: white;}
     .btn-primary:before {content: '🐠';}
     .btn-outline {background: transparent; border: 2px solid rgba(5,60,80,0.06); color: var(--text);}
-    .btn-outline:before {content: '🌴';}
+    .btn-outline:before {content: '🪸';}
     .btn-success {background: var(--success); color: white;}
     .btn-success:before {content: '🐚';}
     .btn-warning {background: var(--warning); color: var(--text);}
@@ -279,6 +279,8 @@
     <div class="sea-creature fish1">🐠</div>
     <div class="sea-creature fish2">🐟</div>
     <div class="sea-creature turtle">🐢</div>
+    <div class="sea-creature turtle">🐙</div>
+
     <div class="coral c1"></div>
     <div class="coral c2"></div>
     <div class="seaweed s1"></div>
@@ -310,7 +312,7 @@
   <!-- NAV -->
   <div class="nav">
     <div class="brand">
-      <div class="logo">🌊</div>
+      <div class="logo">🐙</div>
       <div>
         <div class="title">Marine</div>
         <div style="font-size:12px;color:var(--muted)"> Ocean of Vocabulary 🐟</div>
@@ -371,7 +373,7 @@
             <div style="opacity:0.95">Mở các bubble để luyện tập từng bộ nhỏ</div>
           </div>
           <div style="text-align:right">
-            <div style="font-weight:800;font-size:28px">🌊</div>
+            <div style="font-weight:800;font-size:28px">🌿</div>
           </div>
         </div>
         <div class="skills" id="skills"></div>
@@ -392,7 +394,7 @@
         </div>
       </div>
       <div class="card" role="button" onclick="goTo('grammar')">
-        <div class="icon-circle">🌴</div>
+        <div class="icon-circle">🪸</div>
         <div>
           <h3>Ngữ pháp — Gọn & dễ hiểu</h3>
           <p>Giải thích nhanh + ví dụ minh họa, bài tập ngắn theo chủ đề.</p>
@@ -681,16 +683,16 @@
       { id: 1, title: 'Tide Vocabulary', tag: 'Vocabulary', body: 'Tide: Thủy triều, sự lên xuống của nước biển.', created: new Date() }
     ];
     const chatbotMessages = [
-      "Hê, bơi nhanh lên kẻo cá mập đuổi đó! 😜",
+      "Hê, bơi nhanh lên kẻo cá mập cạp đít giờ =)) ! 😜",
       "Học từ mới đi, đừng để tui bơi một mình nha! 🐠",
       "Tide là thủy triều, mà tui thì siêu... liều! 😎",
-      "Học xong từ này tui dẫn đi ngắm san hô nè! 🌊",
-      "Ủa, mới học có tí mà lề mề thế hả? Nhanh lên nào! 😏",
+      "Học xong từ này tui dẫn đi lên bờ ăn cá khô nè! 🌊",
+      "Ủa, mới học có tí mà lề mề z má ? Lẹ coi ! 😏",
       "Đừng để rong rêu cuốn mất tinh thần học nha! 🌿",
-      "Tui là bạch tuộc, quấn quýt giúp bạn học lẹ nè! 🐙",
-      "Học đi, không là tui quấn chặt bằng xúc tu đó! 😆",
-      "Này, học từ mới đi, đừng để tui tung vòi phun nước nha! 💦",
-      "Bạch tuộc tui đây, học nhanh để còn lặn biển chơi nào! 🪸"
+      "Tui là Khô Mực, quấn quýt giúp bạn học lẹ nè! 🐙",
+      "Học đi, không là t ăn m luôn giờ =)) ! 😆",
+      "Này, học từ mới đi, đừng để t phun nước miếng nghen ! 💦",
+      "Khô Mực tui đây, học lẹ để còn lặn biển chơi nè! 🪸"
     ];
     // === Utility Functions ===
     function showToast(message, type = 'success') {
@@ -956,7 +958,7 @@
         loadNextFlashcard();
         showToast('Đã chuyển sang từ tiếp theo!');
       } else {
-        showToast('Đã hết từ để ôn!', 'danger');
+        showToast('Đã hết từ để ôn 😎!', 'danger');
       }
       showChatbotMessage();
     }
@@ -1024,7 +1026,7 @@
       renderNotes();
       selectNote(newId);
       saveToLocalStorage();
-      showToast('Đã thêm ghi chú mới!');
+      showToast('Đã thêm ghi chú mới 😎!');
       showChatbotMessage();
     }
     function saveNote() {
@@ -1060,7 +1062,7 @@
       renderNotes();
       selectNote(newId);
       saveToLocalStorage();
-      showToast('Đã thêm ghi chú nhanh!');
+      showToast('Đã thêm ghi chú nhanh 🐙 !');
       showChatbotMessage();
     }
     // === Shop ===
@@ -1123,7 +1125,7 @@
         response = vocab ? `${vocab.word}: ${vocab.meaning}${vocab.example ? ` (e.g., ${vocab.example})` : ''}` : `Tui chưa biết từ "${word}" nha! 😅 Thêm vào từ vựng đi!`;
       } else if (message.toLowerCase().startsWith('sửa:') || message.toLowerCase().startsWith('fix:')) {
         const sentence = message.replace(/sửa:|fix:/i, '').trim();
-        response = `Tui không phải AI xịn như Grok, nhưng câu "${sentence}" nghe hơi lạ. Thử thêm vào phần ngữ pháp để tui giúp sửa nhé! 😄`;
+        response = `Tui không phải AI xịn như bà Gpt đâu, nhưng câu "${sentence}" nghe hơi lạ. Thử thêm vào phần ngữ pháp để tui giúp sửa nhé! 😄`;
       } else {
         response = chatbotMessages[Math.floor(Math.random() * chatbotMessages.length)];
       }
